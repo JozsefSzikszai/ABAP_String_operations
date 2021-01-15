@@ -1,0 +1,76 @@
+class ZCL_STRING_OPERATIONS definition
+  public
+  final
+  create public .
+
+public section.
+
+  class-methods FIRST_CHARACTER
+    importing
+      !IV_STRING type STRING
+    returning
+      value(RV_FIRST_CHARACTER) type CHAR1 .
+  class-methods LAST_CHARACTER
+    importing
+      !IV_STRING type STRING
+    returning
+      value(RV_LAST_CHARACTER) type CHAR1 .
+  class-methods REMOVE_LAST_CHARACTER
+    importing
+      !IV_STRING type STRING
+    returning
+      value(RV_LAST_CHARACTER_REMOVED) type STRING .
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS ZCL_STRING_OPERATIONS IMPLEMENTATION.
+
+
+* <SIGNATURE>---------------------------------------------------------------------------------------+
+* | Static Public Method ZCL_STRING_OPERATIONS=>FIRST_CHARACTER
+* +-------------------------------------------------------------------------------------------------+
+* | [--->] IV_STRING                      TYPE        STRING
+* | [<-()] RV_FIRST_CHARACTER             TYPE        CHAR1
+* +--------------------------------------------------------------------------------------</SIGNATURE>
+  METHOD first_character.
+
+    CHECK iv_string IS NOT INITIAL.
+    rv_first_character = iv_string+0(1).
+
+  ENDMETHOD.
+
+
+* <SIGNATURE>---------------------------------------------------------------------------------------+
+* | Static Public Method ZCL_STRING_OPERATIONS=>LAST_CHARACTER
+* +-------------------------------------------------------------------------------------------------+
+* | [--->] IV_STRING                      TYPE        STRING
+* | [<-()] RV_LAST_CHARACTER              TYPE        CHAR1
+* +--------------------------------------------------------------------------------------</SIGNATURE>
+  METHOD last_character.
+
+    CHECK iv_string IS NOT INITIAL.
+    rv_last_character = substring( val = iv_string
+                                   off = ( strlen( iv_string ) - 1 )
+                                   len = 1 ).
+
+  ENDMETHOD.
+
+
+* <SIGNATURE>---------------------------------------------------------------------------------------+
+* | Static Public Method ZCL_STRING_OPERATIONS=>REMOVE_LAST_CHARACTER
+* +-------------------------------------------------------------------------------------------------+
+* | [--->] IV_STRING                      TYPE        STRING
+* | [<-()] RV_LAST_CHARACTER_REMOVED      TYPE        STRING
+* +--------------------------------------------------------------------------------------</SIGNATURE>
+  METHOD remove_last_character.
+
+    CHECK iv_string IS NOT INITIAL.
+    rv_last_character_removed = substring( val = iv_string
+                                           off = 0
+                                           len = strlen( iv_string ) - 1 ).
+
+  ENDMETHOD.
+ENDCLASS.
